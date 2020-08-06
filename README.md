@@ -1,132 +1,106 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Full Stack Developer Challenge
+## Fullstack Challenge
 
 ### Summary
 ![alt text](clean.png "default view")
 * In this challenge you are tasked with allowing a user to visualize data for a Gaia series
-* There are 2 main pieces of functionality:
-  1. Implement an Express server route handler to request and transform data from multiple public Gaia content endpoints
-  1. Implement a form in React (input and button) which takes `seriesId` as an input and fetches data for that series
+* There are 2 areas of focus:
+  1. The Server: Implement a route handler to request and transform data from multiple public Gaia content endpoints
+  1. The Client. Implement a form in React, which takes `seriesId` as an input and fetches data for that series
 * The final data will represent a series and up to 20 of its episodes
 * All challenge requirements can be found in the [Acceptance Criteria Section](#acceptance-criteria)
 
 ### Contents
 <!--ts-->
-* [Pre-requisites](#pre-requisites)
-* [Running the project](#running-the-project)
-* [Orienting yourself](#orienting-yourself)
-* [Guidelines](#guidelines)
+* [Prerequisites](#prerequisites)
+* [Running the Project](#running-the-project)
+* [Orienting Yourself](#orienting-yourself)
+* [Additional Notes](#additional-notes)
 * [Acceptance Criteria](#acceptance-criteria)
 * [Mocks](#mocks)
 * [What we are testing for](#what-we-are-testing-for)
 <!--te-->
 
-### Pre-requisites
+### Prerequisites
 1. npm >= v5.2
-   * Other package managers can be used so long as they are supported by `Create-React-App`
 1. Nodejs >= v8.x
 1. Two open terminals at the root of the application
 
-### Running the project
+### Running the Project
 1. From a terminal, run `$ npm install` to install dependencies.
 1. Run `$ npm start` to start the React application.
-1. In the other terminal, run `$ npm run server` to run the Express server.
-1. View the running web app in your browser by navigating to `http://localhost:3000`.
+1. In a second, separate terminal run `$ npm run server` to start the Express server.
+1. The application will be running on `http://localhost:3000`.
 
-### Orienting yourself
-* Once the project is running, open the codebase in your editor of choice
-* There are two files that will serve as the starting point
-  * `/src/App.js`
-  * `/src/server/index.js`
-* Find the `TODO` comments in these files
-* This challenge should take around 4 hours
+### Orienting Yourself
+* There are two files that will serve as the starting point, `/src/App.js` and `/src/server/index.js`.
+* Find the `TODO` comments in these files; we left you a few hints to get things started.
 
-### Guidelines
-1. Install and use any packages you wish.
-1. Add any folders and files you may need to organize your code.
-1. Please spend no more than 4 hours for this exercise.
+### Additional Notes
+1. Use Redux for state management.
+1. Install and use any other packages you like.
+1. Organize the codebase in any way you like, adding any additional folders and files you may need.
+1. Feel free to be creative, adding any additional features or giving the UI a nice polish.
+1. Please spend no more than 4 hours on this exercise.
 
 ### Acceptance Criteria
 **Please meet as many of the following criteria as you can in the allotted time**
 
-1. Implement a simple form using React/Redux that accepts a numeric id value. This id corresponds to one of our original video series (`seriesId`).
-   * Sample test values:
-     1. `122881`
-     1. `179166`
-     1. `166896`
-1. Use the `seriesId` to make a RESTful call to an API that responds with the metadata for the related series. You will implement the handler for this API endpoint. The handler should:
+1. Implement a Redux store that maintains application state and separates business logic from presentation.
+1. Implement a React form that accepts a numeric value, which represents a Gaia Original Series ID. Example values you can use are `122881`, `179166`, and `166896`.
+1. Using the value input by the end-user, make a RESTful call to an endpoint that responds with the Gaia Original Series metadata. You will implement the handler for this API endpoint. The handler should:
    * Use the `seriesId` included on the HTTP request to proxy another external HTTP request.
    * Process and transform the response data (details below) and serve it back in the response to the original request.
-   * Handle any errors.
-1. When receiving a successful, and well-formed response from the API service, the web app should render the following:
+   * Handle response errors, bad inputs, etc.
+1. When receiving a successful, well-formed response from the API service the React application should render the following:
    * The hero artwork for the series.
-   * The title for the series.
    * An ordered list of episode titles in ascending order.
+   * The title of the series.
    
 _UX and layout requirements are detailed below._
 
 #### Starting Points:
 1. Express Server
-   * Open `/src/server/index.js`
-     * **Notice the two constants in the file:**
-       1. `exampleNodeData`
-       1. `exampleSeriesEpisodeData`
-   * Implement an endpoint handler for `/series-videos` that:
-     1. Fetches node data > http GET request to `https://brooklyn.gaia.com/node/[:nodeId]`
+    * In `/src/server/index.js`
+    * Implement an endpoint handler for `/series-videos` that:
+      1. Fetches node data > http GET request to `https://brooklyn.gaia.com/node/[:nodeId]`
         * Data from this endpoint will look like `exampleNodeData`
         * Datapoints to use:
-          * Series hero art -- `exampleNodeData.hero_image.hero_1070x400`
-          * Series title -- `exampleNodeData.title`
-     1. Then fetches Episode data > http GET request to `https://brooklyn.gaia.com/v2/videos/series/[:seriesId]`
-        * Data from this endpoint will be an array of `exampleSeriesEpisodeData`
-        * The route is paginated (please do **NOT** implement pagination)
+          * Series hero art -- `<response body>.hero_image.hero_1070x400`
+          * Series title -- `<response body>.title`
+      1. Then fetches Episode data > http GET request to `https://brooklyn.gaia.com/v2/videos/series/[:seriesId]`
+        * Successful response from this endpoint will be an array of videos.
+          * You will only be using the `title` and `episode` datapoints from each of the videos.
+          * This route is paginated but please do **NOT** implement pagination.
           * The endpoint will return up to 20 episodes by default (use these)
-        * All we want from this data is the episodes' title and the episodes' number
-        * Iterate over the raw array of `exampleSeriesEpisodeData` and create an array of `basicEpisode`:
-          ```js
-          const basicEpisode = {
-            episodeTitle: exampleSeriesEpisodeData.title,
-            episodeNumber: exampleSeriesEpisodeData.episode,
-          }
-          ```
-      1. Finally, return data in the form:
-         ```js
-         {
-           seriesHeroArt: string,
-           seriesTitle: string,
-           episodeList: [ ..., {basicEpisode}, ... ],
-         }
-         ```
-      1. Implement Catch logic to return meaningful errors to your client
+      1. Return necessdary data as JSON in whatever shape makes the most sense to you.
+      1. Don't forget to validate inputs and handle any errors that may occur.
 
 1. React Application
-   * **UI requirements:**
-     * Responsive - **NO**
-     * Content container - `width: 1070px;`
-     * Form:
-       * Label and button text are defined in the mock
-       * Build to the mocks using your best estimation
-     * Series data container:
-       * Build to the mocks using your best estimation
-   * **UX Requirements:**
-     * Form `onSubmit`
-       * Should:
-         * make a request for series data using the `seriesId` provided by the user (valid `seriesId`'s in [Acceptance Criteria](#acceptance-criteria)
-         * display processing/loading message while an http request is in transit
-         * display any error messaging should an http request fail
-       * Should not attempt to make a request if:
-         * The input is empty
-         * The app is already displaying data for the current `seriesId` form value
-         * The user tries to use any non-numeric value for `seriesId`
-         * There is already a request processing
-     * [Form states](#form-states):
-       * Processing - any time an http request is triggered by the form
-         * Use a clear visual indicator that the application is processing a request
-         * A simple 'Thinking' string is sufficient
-       * Error - If the request returns an error
-         * Use a clear visual indicator that the last request failed
-         * A generic 'Request Failed' message is sufficient
+    * Design mocks are below.
+    * No need to make this a responsive layout.
+    * The app container should not exceed `1070px`
+    * Form label and button text are defined in the mocks.
+    * **UX Requirements:**
+      * Form Should:
+        * make a request for series data using the input value provided by the user.
+        * display a processing/loading state while the http request is in transit.
+        * display an error state should an http request be unsuccessful.
+        * Should not attempt to make a request if:
+          * The input is empty.
+          * The app is already displaying data for the current `seriesId` form value.
+          * The user tries to use any non-numeric value for `seriesId`.
+        * If there is already a request in progress and the user tries to re-submit a new id
+          * Cancel the request in process and create a new one **OR**
+          * Do not allow for new form submission until the last request is complete.
+      * [Form States](#form-states):
+        * Processing - any time an http request is triggered by the form
+          * Use a clear visual indicator that the application is processing a request
+          * A simple 'Thinking' string is sufficient
+        * Error - If the request returns an error
+          * Use a clear visual indicator that the last request failed
+          * A generic 'Request Failed' message is sufficient
 
 ### Mocks
 #### Default View
@@ -138,12 +112,14 @@ _UX and layout requirements are detailed below._
   * Does the solution satisfy the acceptance criteria?
   * React:
     * Effective and consistent state management
-    * Requesting data and handling response
-    * Understanding of React lifecycle
-    * Well-defined component Structure
-    * Concise styling
+    * Separation of Model [requests, business logic and application state] from View.
+    * Requesting data, handling inputs, response, and any errors along the way.
+    * Understanding of the React lifecycle.
+    * Well-defined component Structure.
+    * Concise styling.
+    * Semantic Markup.
   * Express Server:
-    * Concurrent http requests
-    * Manipulating data
-    * Basic error handling
-  * Confidence in solution accuracy
+    * Concurrent http requests.
+    * Manipulating data.
+    * Basic error handling.
+  * Confidence in solution accuracy.
