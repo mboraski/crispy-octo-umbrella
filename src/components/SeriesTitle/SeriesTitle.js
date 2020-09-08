@@ -1,7 +1,8 @@
 import React from 'react';
+import './SeriesTitle.css';
 
 const SeriesTitle = (props) => {
-    return <div>{props.seriesTitle}</div>;
+    return <div className="series-title">{props.seriesTitle}</div>;
 };
 
 export default SeriesTitle;

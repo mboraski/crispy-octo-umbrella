@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import HeroImage from '../HeroImage/HeroImage';
 import SeriesTitle from '../SeriesTitle/SeriesTitle';
 import EpisodeList from '../EpisodeList/EpisodeList';
+import './SeriesDataContainer.css';
 
 class SeriesDataContainer extends Component {
     render() {
@@ -21,8 +22,10 @@ class SeriesDataContainer extends Component {
             return (
                 <div>
                     <HeroImage seriesHero={seriesHero} />
-                    <SeriesTitle seriesTitle={seriesTitle} />
-                    <EpisodeList episodeList={episodeList} />
+                    <div className="series-details-wrapper">
+                        <SeriesTitle seriesTitle={seriesTitle} />
+                        <EpisodeList episodeList={episodeList} />
+                    </div>
                 </div>
             );
         } else {

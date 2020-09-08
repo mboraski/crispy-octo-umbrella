@@ -1,0 +1,15 @@
+.episode-list-wrapper {
+    text-align: center;
+    width: 535px;
+    margin: auto;
+    padding: 20px 150px;
+}
+
+.episode-list-title {
+    text-align: left;
+    font-weight: 800;
+}
+
+.episode-list {
+    text-align: left;
+}

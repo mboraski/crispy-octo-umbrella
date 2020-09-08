@@ -1,0 +1,32 @@
+.search-form {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.search-form__input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    margin-right: 15px;
+}
+
+.search-form__input {
+    line-height: 25px;
+}
+
+.search-form__button {
+    width: 360px;
+    background-color: #4caf50;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+}
+
+.search-form__submit-message {
+    margin: 10px 0;
+}
+
+.search-form__submit-message--danger {
+    margin: 10px 0;
+    color: #ff0000;
+}

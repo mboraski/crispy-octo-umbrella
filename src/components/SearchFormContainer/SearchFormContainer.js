@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSeriesData } from '../../actions/seriesDataActions';
 import { updateSearchTerm } from '../../actions/searchFormActions';
+import './SearchFormContainer.css';
 
 class SearchFormContainer extends Component {
     onInputChange = (event) => {
@@ -45,19 +46,25 @@ class SearchFormContainer extends Component {
     };
 
     render() {
-        const submitMessageClass = this.props.err ? 'danger' : '';
+        const submitMessageClass = this.props.error
+            ? 'search-form__submit-message--danger'
+            : 'search-form__submit-message';
         return (
-            <div>
-                <form onSubmit={this.onSearchSubmit}>
-                    <div>
+            <div className="search-form-container">
+                <form className="search-form" onSubmit={this.onSearchSubmit}>
+                    <div className="search-form__input-wrapper">
                         <label>Series Id:</label>
                         <input
                             type="text"
+                            className="search-form__input"
                             value={this.props.term}
                             onChange={this.onInputChange}
                         />
                     </div>
-                    <button onClick={this.onSearchSubmit}>
+                    <button
+                        className="search-form__button"
+                        onClick={this.onSearchSubmit}
+                    >
                         GET SERIES DATA
                     </button>
                 </form>
