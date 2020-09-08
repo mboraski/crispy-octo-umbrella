@@ -1,0 +1,23 @@
+#root {
+    height: 100vh;
+    background-color: #282c34;
+    color: white;
+}
+
+.app {
+    height: 100%;
+    margin: 0 auto;
+    max-width: 1070px;
+}
+
+.app h1 {
+    margin-top: 0;
+}
+
+.app__header {
+    margin-bottom: 30px;
+}
+
+.app__body {
+    text-align: center;
+}

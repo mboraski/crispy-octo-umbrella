@@ -23,9 +23,9 @@ app.get('/series-videos', async (req, res, next) => {
         );
         const seriesEpisodeList = seriesVideosData.data.videos;
         const episodeDetailsList = seriesEpisodeList.map((episodeData) => {
-            const { seriesTitle, episode, id } = episodeData;
+            const { title, episode, id } = episodeData;
             return {
-                episodeTitle: seriesTitle,
+                episodeTitle: title,
                 episodeNumber: episode,
                 episodeId: id,
             };

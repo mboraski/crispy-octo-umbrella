@@ -7,18 +7,38 @@ export const actions = {
 };
 
 export const fetchSeriesData = () => async (dispatch, getState) => {
-    const state = getState();
-    console.log('seriesDataActions fetchSeriesData state: ', state);
-    // const term = getState().term;
-    // const response = await seriesAPI.get('/series-videos', {
-    //     params: {
-    //         seriesId: term,
-    //     },
-    // });
-    return dispatch({
+    dispatch({
         type: actions.SERIES_DATA_REQUEST,
-        payload: {},
     });
+    try {
+        const searchFormData = getState().searchForm;
+        console.log(
+            'seriesDataActions fetchSeriesData state: ',
+            searchFormData
+        );
+        const response = await seriesAPI.get('/series-videos', {
+            params: {
+                seriesId: searchFormData.term,
+            },
+        });
+        console.log('response: ', response);
+        console.log('response.data: ', response.data);
+        const data = {
+            seriesHero: response.data.seriesHero,
+            seriesTitle: response.data.seriesTitle,
+            episodeList: response.data.episodeList,
+            error: null,
+        };
+        return dispatch({
+            type: actions.SERIES_DATA_REQUEST_SUCCESS,
+            payload: data,
+        });
+    } catch (err) {
+        return dispatch({
+            type: actions.SERIES_DATA_REQUEST_FAILURE,
+            payload: { error: err },
+        });
+    }
 };
 
 export const fetchSeriesDataFailure = () => {
