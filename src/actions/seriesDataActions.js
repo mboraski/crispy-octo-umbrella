@@ -12,19 +12,14 @@ export const fetchSeriesData = () => async (dispatch, getState) => {
     });
     try {
         const searchFormData = getState().searchForm;
-        console.log(
-            'seriesDataActions fetchSeriesData state: ',
-            searchFormData
-        );
         const response = await seriesAPI.get('/series-videos', {
             params: {
                 seriesId: searchFormData.term,
             },
         });
-        console.log('response: ', response);
-        console.log('response.data: ', response.data);
         const data = {
             seriesHero: response.data.seriesHero,
+            seriesId: searchFormData.term,
             seriesTitle: response.data.seriesTitle,
             episodeList: response.data.episodeList,
             error: null,

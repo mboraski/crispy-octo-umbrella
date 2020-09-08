@@ -11,10 +11,41 @@ class SearchFormContainer extends Component {
     onSearchSubmit = (event) => {
         event.preventDefault();
 
-        this.props.fetchSeriesData();
+        const validEntry = this.validateEntry();
+
+        if (validEntry) {
+            this.props.fetchSeriesData();
+        }
+    };
+
+    validateEntry = () => {
+        const term = this.props.term;
+        if (this.props.seriesId === term) {
+            return false;
+        } else if (!term.length) {
+            return false;
+        } else if (!RegExp(/^\d+$/).test(term)) {
+            return false;
+        } else {
+            return true;
+        }
+    };
+
+    determineSubmitMessage = () => {
+        const { isFetching, error } = this.props;
+        let submitMessage = '';
+
+        if (error) {
+            submitMessage = 'Not Found';
+        } else if (isFetching) {
+            submitMessage = 'THINKING!';
+        }
+
+        return submitMessage;
     };
 
     render() {
+        const submitMessageClass = this.props.err ? 'danger' : '';
         return (
             <div>
                 <form onSubmit={this.onSearchSubmit}>
@@ -26,16 +57,24 @@ class SearchFormContainer extends Component {
                             onChange={this.onInputChange}
                         />
                     </div>
+                    <button onClick={this.onSearchSubmit}>
+                        GET SERIES DATA
+                    </button>
                 </form>
+                <div className={submitMessageClass}>
+                    {this.determineSubmitMessage()}
+                </div>
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    const { term } = state;
+    console.log('search form map state: ', state);
     return {
-        term,
+        term: state.searchForm.term,
+        isFetching: state.seriesData.isFetching,
+        error: state.seriesData.error,
     };
 };
 
