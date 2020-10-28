@@ -1,13 +1,12 @@
 import React from 'react';
+import { Chat, Channel, ChannelHeader, Window } from 'stream-chat-react';
 import {
-    Chat,
-    Channel,
-    ChannelList,
-    ChannelHeader,
+    MessageList,
+    MessageInput,
+    MessageLivestream,
+    MessageInputSmall,
     Thread,
-    Window,
 } from 'stream-chat-react';
-import { MessageList, MessageInput } from 'stream-chat-react';
 import { StreamChat } from 'stream-chat';
 
 import 'stream-chat-react/dist/css/index.css';
@@ -26,20 +25,20 @@ chatClient.setUser(
     userToken
 );
 
-const filters = { type: 'messaging', members: { $in: ['sweet-haze-7'] } };
-const sort = { last_message_at: -1 };
-// const channels = chatClient.queryChannels(filters, sort);
+const channel = chatClient.channel('livestream', 'spacex', {
+    image: 'https://goo.gle/Zefkbx',
+    name: 'SpaceX launch discussion',
+});
 
 const StreamChatContainer = () => (
-    <Chat client={chatClient} theme={'messaging light'}>
-        <ChannelList filters={filters} sort={sort} />
-        <Channel>
-            <Window>
-                <ChannelHeader />
+    <Chat client={chatClient} theme={'livestream dark'}>
+        <Channel channel={channel} message={MessageLivestream}>
+            <Window hideOnThread>
+                <ChannelHeader live />
                 <MessageList />
-                <MessageInput />
+                <MessageInput Input={MessageInputSmall} focus />
             </Window>
-            <Thread />
+            <Thread fullWidth />
         </Channel>
     </Chat>
 );
