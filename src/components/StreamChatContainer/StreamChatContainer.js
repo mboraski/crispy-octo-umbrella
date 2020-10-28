@@ -2,6 +2,7 @@ import React from 'react';
 import {
     Chat,
     Channel,
+    ChannelList,
     ChannelHeader,
     Thread,
     Window,
@@ -25,15 +26,14 @@ chatClient.setUser(
     userToken
 );
 
-const channel = chatClient.channel('messaging', 'goodevs', {
-    image:
-        'https://cdn.chrisshort.net/testing-certificate-chains-in-go/GOPHER_MIC_DROP.png',
-    name: 'Talk about Go',
-});
+const filters = { type: 'messaging', members: { $in: ['sweet-haze-7'] } };
+const sort = { last_message_at: -1 };
+// const channels = chatClient.queryChannels(filters, sort);
 
 const StreamChatContainer = () => (
     <Chat client={chatClient} theme={'messaging light'}>
-        <Channel channel={channel}>
+        <ChannelList filters={filters} sort={sort} />
+        <Channel>
             <Window>
                 <ChannelHeader />
                 <MessageList />
