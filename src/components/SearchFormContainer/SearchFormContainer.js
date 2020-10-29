@@ -77,7 +77,6 @@ class SearchFormContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log('search form map state: ', state);
     return {
         term: state.searchForm.term,
         isFetching: state.seriesData.isFetching,

@@ -1,0 +1,12 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__button {
+    width: 260px;
+    background-color: #4caf50;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+}

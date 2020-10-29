@@ -1,17 +1,17 @@
 import React from 'react';
+import HeaderContainer from '../HeaderContainer/HeaderContainer';
 import SearchFormContainer from '../SearchFormContainer/SearchFormContainer';
 import SeriesDataContainer from '../SeriesDataContainer/SeriesDataContainer';
-import Header from '../Header/Header';
-import StreamChatContainer from '../StreamChatContainer/StreamChatContainer';
+import StreamAppContainer from '../StreamAppContainer/StreamAppContainer';
 import './App.css';
 
 const App = () => {
     return (
         <div className="app">
-            <Header />
+            <HeaderContainer />
             <SearchFormContainer />
             <SeriesDataContainer />
-            <StreamChatContainer />
+            <StreamAppContainer />
         </div>
     );
 };

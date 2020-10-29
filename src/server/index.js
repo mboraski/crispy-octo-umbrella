@@ -2,12 +2,25 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const users = require('../db/users.js');
+const stream = require('getstream');
+
 const app = express();
 const port = process.env.PORT || 9002;
+const streamClient = stream.connect(
+    '7ybe5zzkwqdx',
+    'mf5uny5qqcaejk8v2gk9bqu32xnm2nf2bj65n2e8ytrkxx64fn7t6fuujvwxqfbm'
+);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+
+app.post('/login', async (req, res) => {
+    const user = users[0];
+    const token = streamClient.createUserToken(user.id);
+    res.status(200).send({ user: user, token: token });
+});
 
 app.get('/series-videos', async (req, res, next) => {
     try {
