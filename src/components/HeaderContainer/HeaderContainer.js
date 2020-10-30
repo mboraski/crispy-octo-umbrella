@@ -14,16 +14,9 @@ class HeaderContainer extends Component {
         }
     };
     render() {
-        const loginButtonText = this.props.loginState ? 'Logout' : 'Login';
         return (
             <nav className="header">
-                <h1>{`Conscious Social Connection Board`}</h1>
-                <button
-                    className="header__button"
-                    onClick={this.onAuthenticationClick}
-                >
-                    {loginButtonText}
-                </button>
+                <h1>{`Conscious Social Connection`}</h1>
             </nav>
         );
     }

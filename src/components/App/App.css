@@ -6,8 +6,7 @@
 .app {
     height: 100%;
     margin: 0 auto;
-    max-width: 1070px;
-    padding-top: 10px;
+    padding: 10px;
 }
 
 .app h1 {
@@ -20,4 +19,20 @@
 
 .app__body {
     text-align: center;
+}
+
+.stream-app-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.stream-app-container__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid;
 }

@@ -1,0 +1,11 @@
+.stream-app-container__notification {
+    margin-top: 10px;
+    padding: 10px;
+    align-self: flex-start;
+}
+.stream-app-container__flat-feed {
+    margin-top: 10px;
+}
+.stream-app-container__notification-feed {
+    margin-top: 10px;
+}

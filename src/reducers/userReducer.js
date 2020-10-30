@@ -1,22 +1,23 @@
 import { actions } from '../actions/userActions';
 
 const initialState = {
-    id: '',
-    name: '',
-    image: '',
+    id: 'gaia',
+    name: 'Gaia',
+    image:
+        'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.technobezz.com%2Fhow-to-change-site-language-on-gaia%2F&psig=AOvVaw2-gZcvHTcENhIB5F0Nq94O&ust=1604076296716000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIjS74Kg2uwCFQAAAAAdAAAAABAJ',
     authToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZ2FpYSJ9.DLqsk2g67N6hpxiq68vyUtTun9VdYgSSov78u2ZkvsY',
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoidXNlci1vbmUifQ.XwUo_eb-rSe0LXl54R-_F6Et4ZAMlEDb6Y_ySqlzFko',
     isFetching: false,
     error: null,
 };
 
 const userData = (state = initialState, action) => {
     switch (action.type) {
-        case actions.SERIES_DATA_REQUEST:
+        case actions.LOGIN_REQUEST:
             return { ...state, ...initialState, isFetching: true };
-        case actions.SERIES_DATA_REQUEST_SUCCESS:
+        case actions.LOGIN_REQUEST_SUCCESS:
             return { ...state, ...action.payload, isFetching: false };
-        case actions.SERIES_DATA_REQUEST_FAILURE:
+        case actions.LOGIN_REQUEST_FAILURE:
             return { ...state, ...action.payload, isFetching: false };
         default:
             return state;

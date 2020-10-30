@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const axios = require('axios');
-const users = require('../db/users.js');
+// const users = require('../db/users.js');
 const stream = require('getstream');
 
 const app = express();
@@ -17,9 +17,13 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.post('/login', async (req, res) => {
-    const user = users[0];
-    const token = streamClient.createUserToken(user.id);
-    res.status(200).send({ user: user, token: token });
+    const response = streamClient.user('gaia').getOrCreate({
+        name: req.body.name,
+        image: req.body.image,
+    });
+    console.log('login response: ', response);
+    // const token = streamClient.createUserToken(user.id);
+    res.status(200).send({});
 });
 
 app.get('/series-videos', async (req, res, next) => {
