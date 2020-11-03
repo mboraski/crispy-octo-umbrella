@@ -1,7 +1,4 @@
 import { authAPI } from '../apis/gaiaAuth';
-// const stream = require('getstream');
-
-// const client = stream.connect('7ybe5zzkwqdx', null, '97919')
 
 export const actions = {
     LOGIN_REQUEST: 'LOGIN_REQUEST',

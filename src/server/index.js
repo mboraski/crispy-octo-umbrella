@@ -12,6 +12,11 @@ const streamClient = stream.connect(
     'mf5uny5qqcaejk8v2gk9bqu32xnm2nf2bj65n2e8ytrkxx64fn7t6fuujvwxqfbm'
 );
 
+const createUser = async () => await streamClient.user('gaia').get();
+const user = createUser();
+
+console.log('created user: ', user);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());

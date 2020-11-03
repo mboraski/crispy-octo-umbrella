@@ -5,8 +5,7 @@ const initialState = {
     name: 'Gaia',
     image:
         'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.technobezz.com%2Fhow-to-change-site-language-on-gaia%2F&psig=AOvVaw2-gZcvHTcENhIB5F0Nq94O&ust=1604076296716000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIjS74Kg2uwCFQAAAAAdAAAAABAJ',
-    authToken:
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoidXNlci1vbmUifQ.XwUo_eb-rSe0LXl54R-_F6Et4ZAMlEDb6Y_ySqlzFko',
+    authToken: '',
     isFetching: false,
     error: null,
 };

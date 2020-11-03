@@ -15,6 +15,7 @@ import './StreamAppContainer.css';
 
 class StreamAppContainer1 extends React.Component {
     render() {
+        console.log('stream app props: ', this.props);
         return (
             <StreamApp
                 apiKey="7ybe5zzkwqdx"
